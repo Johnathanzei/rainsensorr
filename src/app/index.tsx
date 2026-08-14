@@ -1,39 +1,100 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
-import React from 'react'
-import { Link } from 'expo-router';
-const app = () => {
-  return(
-    <View style={styles.container}>
-      <Text>Johnathanzeiei</Text>
-      <Text>{""}</Text>
-      <Image
-        source={require("./pic/1.jpg")}
-        style={styles.image}
-      />
-      <Text>{""}</Text>
-      <Link href="/about"> เกี่ยวกับ </Link>
-    </View>
-  )
+import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
+import { router } from "expo-router";
+
+export default function Index() {
+  return (
+    <ImageBackground
+      source={require("../../assets/back.jpg")}
+      style={styles.background}
+      resizeMode="cover"
+    >
+      <View style={styles.container}>
+
+        {/* ชื่อระบบด้านบน */}
+        <Text style={styles.header}>
+          ระบบราวตากผ้าอัจฉริยะ
+        </Text>
+
+        {/* ชื่อห้อง */}
+        <Text style={styles.room}>
+          ห้องซักผ้า
+        </Text>
+
+        {/* การ์ดราวตากผ้า */}
+        <TouchableOpacity
+          style={styles.card}
+          onPress={() => router.push("/about")}
+        >
+          <Text style={styles.icon}>
+            🧺
+          </Text>
+
+          <Text style={styles.cardTitle}>
+            ราวตากผ้าอัจฉริยะ
+          </Text>
+
+          <Text style={styles.status}>
+            กำลังทำงาน
+          </Text>
+        </TouchableOpacity>
+
+      </View>
+    </ImageBackground>
+  );
 }
-export default app  
-  const styles = StyleSheet.create({
+
+const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+  },
+
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#f5f5f5",
+    paddingTop: 70,
+    paddingHorizontal: 25,
   },
-  image: {
-    width: 200,
-    height: 200,
-    borderRadius: 20,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 8,
-      height: 8,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
-    elevation: 12,
+
+  header: {
+    fontSize: 28,
+    color: "#fff",
+    fontWeight: "bold",
+    marginBottom: 30,
+  },
+
+  room: {
+    fontSize: 22,
+    color: "#fff",
+    marginBottom: 10,
+  },
+
+  card: {
+    width: "100%",
+    height: 180,
+    backgroundColor: "rgba(30, 30, 30, 0.9)",
+    borderRadius: 25,
+    padding: 25,
+    justifyContent: "space-between",
+  },
+
+  icon: {
+    fontSize: 35,
+  },
+
+  cardTitle: {
+    color: "#fff",
+    fontSize: 22,
+    fontWeight: "bold",
+  },
+
+  status: {
+    color: "#aaa",
+    fontSize: 16,
   },
 });

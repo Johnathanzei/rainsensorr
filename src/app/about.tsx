@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
+import { router } from "expo-router";
 
 export default function RainDryer() {
   const [isPowerOn, setIsPowerOn] = useState(true);
@@ -18,7 +19,7 @@ export default function RainDryer() {
 
   // 🔥 ดึงข้อมูลจาก PHP
   const fetchData = () => {
-    fetch("http://192.168.1.120/api/get_sensor.php")
+    fetch("http://192.168.1.45/api/get_sensor.php")
       .then((res) => res.json())
       .then((data) => {
         setTemperature(parseFloat(data.temperature) || 0);
@@ -41,7 +42,7 @@ export default function RainDryer() {
     const newPower = !isPowerOn;
     setIsPowerOn(newPower);
 
-    fetch("http://192.168.1.120/api/control.php", {
+    fetch("http://192.168.1.45/api/control.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -126,15 +127,25 @@ export default function RainDryer() {
 
           {/* 🎯 เมนู */}
           <View style={styles.actionRow}>
-            <TouchableOpacity style={styles.actionBtn}>
-              <Text style={styles.icon}>🕒</Text>
+
+            {/* พยากรณ์ฝน */}
+            <TouchableOpacity
+              style={styles.actionBtn}
+              onPress={() => router.push("/Weather")}
+            >
+              <Text style={styles.icon}>🌧️</Text>
               <Text style={styles.label}>พยากรณ์ฝน</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.actionBtn}>
+            {/* กำหนดเวลา */}
+            <TouchableOpacity
+              style={styles.actionBtn}
+              onPress={() => router.push("/Time")}
+            >
               <Text style={styles.icon}>🕒</Text>
               <Text style={styles.label}>กำหนดเวลา</Text>
             </TouchableOpacity>
+
           </View>
 
           {/* 🟢 ปุ่มจำลอง */}
